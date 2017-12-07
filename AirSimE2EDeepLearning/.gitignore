@@ -288,4 +288,4 @@ __pycache__/
 *.xsd.cs
 
 # Python notebook checkpoints
-*/*/.ipnyb*
+.ipnyb*
