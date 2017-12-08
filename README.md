@@ -12,6 +12,17 @@ We believe that the best way to make a technology grow is by making it easily av
 
 Our plan is to make this cookbook a valuable resource for beginners, researchers and industry experts alike. We would love to hear your feedback on how we can evolve this project to reach that goal. Please use the GitHub Issues section to get in touch with us regarding ideas and suggestions.
 
+### Tutorials available
+
+Currently, the following tutorials are available:
+
+- [Autonomous Driving using End-to-End Deep Learning: an AirSim tutorial](./AirSimE2EDeepLearning/)
+
+Following tutorials will be available soon:
+
+- Distributed Reinforcement Learning using AirSim and Batch AI
+- Collecting data from your car for autonomous driving
+
 ### Contributing
 
 This project welcomes and encourages contributions and suggestions.  Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit https://cla.microsoft.com.
