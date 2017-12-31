@@ -1,5 +1,17 @@
 # The Autonomous Driving Cookbook (Preview)
 
+
+
+------
+
+#### **NOTE:**
+
+This project is developed and being maintained by the Microsoft Deep Learning and Robotics Garage Chapter. This is currently a work in progress. We will continue to add more tutorials and scenarios based on requests from our users and the availability of our collaborators.
+
+------
+
+
+
 ## Simulation and AI
 
 Autonomous Driving has transcended far beyond being a crazy moonshot idea over the last half decade or so. It is quickly becoming the biggest technology today that promises to shape our tomorrow, not very unlike when cars came into existence in the first place. Almost every single car manufacturer, every big technology company, and a number of very promising startups have been working on different aspects of autonomous driving to help shape this revolution. Some of the biggest drivers powering this change have been the recent advances in software (robotics and deep learning techniques), hardware technology (GPUs, FPGAs etc.) and cloud computing. Cloud platforms like [Azure](https://azure.microsoft.com) have enabled ingest and processing of large amounts of data, making it possible for companies to push for levels 4 and 5 of AD autonomy. 
@@ -25,17 +37,10 @@ Following tutorials will be available soon:
 
 ### Contributing
 
+Please read the [instructions and guidelines for collaborators](./Instructions for collaborators.md) if you wish to add a new tutorial to the cookbook. 
+
 This project welcomes and encourages contributions and suggestions.  Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit https://cla.microsoft.com.
 
 When you submit a pull request, a CLA-bot will automatically determine whether you need to provide a CLA and decorate the PR appropriately (e.g., label, comment). Simply follow the instructions provided by the bot. You will only need to do this once across all repos using our CLA.
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
-------
-
-#### **NOTE:**
-
-This project is being maintained and developed by the Microsoft Deep Learning and Robotics Garage Chapter. This is currently a work in progress. We will continue to add more scenarios based on requests from our users and the availability of our collaborators.
-
-------
-

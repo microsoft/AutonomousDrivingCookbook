@@ -287,5 +287,10 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
-# Python notebook checkpoints
+# Python notebook checkpoints etc.
 .ipnyb*
+.idea*
+
+# Runtime data from tutorials
+data*
+model*
