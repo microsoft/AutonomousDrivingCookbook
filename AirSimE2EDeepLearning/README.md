@@ -6,13 +6,11 @@
 
 **[Aditya Sharma](https://www.linkedin.com/in/adityasharmacmu/)**, Program Manager, Microsoft
 
-*(This tutorial has been developed by the Microsoft Deep Learning and Robotics Garage Chapter)*
-
 ## Overview
 
 In this tutorial, you will learn how to train and test an end-to-end deep learning model for autonomous driving using data collected from the [AirSim simulation environment](https://github.com/Microsoft/AirSim). You will train a model to learn how to steer a car through a portion of the Landscape map in AirSim using only one of the front facing webcams as visual input. Such a task is usually considered the "hello world" of autonomous driving, but after finishing this tutorial you will have enough background to start exploring new ideas on your own. Through the length of this tutorial, you will also learn some practical aspects and nuances of working with end-to-end deep learning methods.
 
-Here's a short sample of the model in action. :
+Here's a short sample of the model in action:
 
 ![car-driving](car_driving.gif)
 
@@ -61,4 +59,4 @@ The dataset for the model is quite large. [You can download it from here](https:
 
 #### A note from the curators
 
-We have made our best effort to ensure this tutorial can help you get started with the basics of autonomous driving and get you to the point where you can start exploring new ideas independently. We would love to hear your feedback on how we can improve and evolve this tutorial. We would also love to know what other tutorials we can provide you that will help you advance your career goals. Please feel free to use the GitHub issues section for all feedback. All feedback will be monitored closely. If you have ideas you would like to [collaborate](../README.md#Contributing) on, please feel free to reach out to us and we will be happy to work with you (please use the main AirSim repo if you wish to contribute to the AirSim codebase and use this repo if you want to collaborate on demos/tutorials/scenarios in the AD domain in general).
+We have made our best effort to ensure this tutorial can help you get started with the basics of autonomous driving and get you to the point where you can start exploring new ideas independently. We would love to hear your feedback on how we can improve and evolve this tutorial. We would also love to know what other tutorials we can provide you that will help you advance your career goals. Please feel free to use the GitHub issues section for all feedback. All feedback will be monitored closely. If you have ideas you would like to [collaborate](../README.md#contributing) on, please feel free to reach out to us and we will be happy to work with you.
