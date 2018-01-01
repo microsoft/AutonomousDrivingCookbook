@@ -37,7 +37,7 @@ Following tutorials will be available soon:
 
 ### Contributing
 
-Please read the [instructions and guidelines for collaborators](./Instructions for collaborators.md) if you wish to add a new tutorial to the cookbook. 
+Please read the [instructions and guidelines for collaborators](https://github.com/Microsoft/AutonomousDrivingCookbook/blob/master/Instructions%20for%20collaborators.md) if you wish to add a new tutorial to the cookbook. 
 
 This project welcomes and encourages contributions and suggestions.  Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit https://cla.microsoft.com.
 
