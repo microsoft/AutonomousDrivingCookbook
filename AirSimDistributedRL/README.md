@@ -31,7 +31,7 @@ It is also highly recommended that the reader has familiarity with the AirSim si
 
 #### TODO: Environment Setup
 
-1. [Download the latest version of our Simulation Package](https://aka.ms/ADCookbookAirSimPackage). Consider using [AzCopy](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy) instead of direct HTTPS download, as the file size is large.
+1. [Download the latest version of our Simulation Package](https://airsimtutorialdataset.blob.core.windows.net/e2edl/AD_Cookbook_AirSim.7z). Consider using [AzCopy](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy) instead of direct HTTPS download, as the file size is large.
 2. [Install Anaconda](https://conda.io/docs/user-guide/install/index.html) with Python 3.5 or higher.
 3. [Install CNTK](https://docs.microsoft.com/en-us/cognitive-toolkit/Setup-CNTK-on-your-machine) or [install Tensorflow](https://www.tensorflow.org/install/install_windows)
 4. [Install h5py](http://docs.h5py.org/en/latest/build.html)
@@ -43,7 +43,7 @@ It is also highly recommended that the reader has familiarity with the AirSim si
 
 #### Simulator Package
 
-We have created a standalone build of the AirSim simulation environment for the tutorials in this cookbook. [You can download the build package from here](https://aka.ms/ADCookbookAirSimPackage). Consider using [AzCopy](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy), as the file size is large. After downloading the package, unzip it and run the powershell command
+We have created a standalone build of the AirSim simulation environment for the tutorials in this cookbook. [You can download the build package from here](https://airsimtutorialdataset.blob.core.windows.net/e2edl/AD_Cookbook_AirSim.7z). Consider using [AzCopy](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy), as the file size is large. After downloading the package, unzip it and run the powershell command
 
 `
 .\AD_Cookbook_Start_AirSim.ps1 neighborhood
