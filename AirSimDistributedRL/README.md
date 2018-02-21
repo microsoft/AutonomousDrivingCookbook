@@ -55,6 +55,8 @@ to start the simulator in the neighborhood environmnet.
 
 This tutorial has been designed to run on Azure Batch using NV6 machines. Training times and charges vary depending on the number of machines that are spun up. Using a cluster size of 4 (i.e. 3 agent nodes and 1 trainer node), the model took 3 days to train from scratch. Using pretrained weights, the model trained in 6 hours. Using a large cluster size will result in a decreased training time, but will also incur additional charges. 
 
+For demonstration purposes, the model can be trained on a single machine. The model can take up to 5 days to train from scratch, but can train in a few hours using pretrained model weights. To train the model locally, a machine that contains a NVIDIA GPU is required.
+
 To run the model, a machine with an NVIDIA GPU is required. This can either be an on-premise development box, or an NV-Series Azure Data Science VM. 
 
 ## Structure of the tutorial
@@ -69,3 +71,10 @@ Step 2: [Launch the training job](LaunchTrainingJob.ipynb)
 
 Step 3: [Run the model](RunModel.ipynb)
 
+To train the model locally, proceed through the notebooks in the following order:
+
+Step 1: [Explore the algorithm](ExploreAlgorithm.ipynb)
+
+Step 2B: [Launch the Local training job](LaunchLocalTrainingJob.ipynb)
+
+Step 3: [Run the model](RunModel.ipynb)
