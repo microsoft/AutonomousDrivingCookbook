@@ -1,0 +1,1 @@
+net use Z: \\{storage_account_name}.file.core.windows.net\{file_share_name} /u:AZURE\{storage_account_name} {storage_account_key}
