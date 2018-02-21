@@ -123,6 +123,11 @@ class RlModel():
             
             print('UPDATE GRADIENT DEBUG END')
             
+    def update_critic(self):
+        with self.__target_context.as_default():
+            self.__target_model.set_weights([np.array(w, copy=True) for w in self.__action_model.get_weights()])
+    
+            
     # Given a set of training data, trains the model and determine the gradients.
     # The agent will use this to compute the model updates to send to the trainer
     def get_gradient_update_from_batches(self, batches):

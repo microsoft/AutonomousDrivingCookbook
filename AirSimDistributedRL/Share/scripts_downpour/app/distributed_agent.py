@@ -36,11 +36,23 @@ class DistributedAgent():
         self.__experiment_name = parameters['experiment_name']
         self.__train_conv_layers = bool(parameters['train_conv_layers'])
         self.__epsilon = 1
+        self.__num_batches_run = 0
+        self.__last_checkpoint_batch_count = 0
+        
+        if 'batch_update_frequency' in parameters:
+            self.__batch_update_frequency = int(parameters['batch_update_frequency'])
         
         if 'weights_path' in parameters:
             self.__weights_path = parameters['weights_path']
         else:
             self.__weights_path = None
+            
+        if 'airsim_path' in parameters:
+            self.__airsim_path = parameters['airsim_path']
+        else:
+            self.__airsim_path = None
+
+        self.__local_run = 'local_run' in parameters
 
         self.__car_client = None
         self.__car_controls = None
@@ -71,42 +83,48 @@ class DistributedAgent():
         
         # Once the trainer is online, it will write its IP to a file in (data_dir)\trainer_ip\trainer_ip.txt
         # Wait for that file to exist
-        print('Waiting for trainer to come online')
-        while True:
-            trainer_ip_dir = os.path.join(os.path.join(self.__data_dir, 'trainer_ip'), self.__experiment_name)
-            print('Checking {0}...'.format(trainer_ip_dir))
-            if os.path.isdir(trainer_ip_dir):
-                with open(os.path.join(trainer_ip_dir, 'trainer_ip.txt'), 'r') as f:
-                    self.__possible_ip_addresses.append(f.read().replace('\n', ''))
-                    break
-            print('Not online yet. Sleeping...')
-            time.sleep(5)
+        if not self.__local_run:
+            print('Waiting for trainer to come online')
+            while True:
+                trainer_ip_dir = os.path.join(os.path.join(self.__data_dir, 'trainer_ip'), self.__experiment_name)
+                print('Checking {0}...'.format(trainer_ip_dir))
+                if os.path.isdir(trainer_ip_dir):
+                    with open(os.path.join(trainer_ip_dir, 'trainer_ip.txt'), 'r') as f:
+                        self.__possible_ip_addresses.append(f.read().replace('\n', ''))
+                        break
+                print('Not online yet. Sleeping...')
+                time.sleep(5)
         
-        # We now have the IP address for the trainer. Attempt to ping the trainer.
-        ping_idx = -1
-        while True:
-            ping_idx += 1
-            print('Attempting to ping trainer...')
-            try:
-                print('\tPinging {0}...'.format(self.__possible_ip_addresses[ping_idx % len(self.__possible_ip_addresses)]))
-                response = requests.get('http://{0}:80/ping'.format(self.__possible_ip_addresses[ping_idx % len(self.__possible_ip_addresses)])).json()
-                if response['message'] != 'pong':
-                    raise ValueError('Received unexpected message: {0}'.format(response))
-                print('Success!')
-                self.__trainer_ip_address = self.__possible_ip_addresses[ping_idx % len(self.__possible_ip_addresses)]
-                break
-            except Exception as e:
-                print('Could not get response. Message is {0}'.format(e))
-                if (ping_idx % len(self.__possible_ip_addresses) == 0):
-                    print('Waiting 5 seconds and trying again...')
-                    time.sleep(5)
+            # We now have the IP address for the trainer. Attempt to ping the trainer.
+            ping_idx = -1
+            while True:
+                ping_idx += 1
+                print('Attempting to ping trainer...')
+                try:
+                    print('\tPinging {0}...'.format(self.__possible_ip_addresses[ping_idx % len(self.__possible_ip_addresses)]))
+                    response = requests.get('http://{0}:80/ping'.format(self.__possible_ip_addresses[ping_idx % len(self.__possible_ip_addresses)])).json()
+                    if response['message'] != 'pong':
+                        raise ValueError('Received unexpected message: {0}'.format(response))
+                    print('Success!')
+                    self.__trainer_ip_address = self.__possible_ip_addresses[ping_idx % len(self.__possible_ip_addresses)]
+                    break
+                except Exception as e:
+                    print('Could not get response. Message is {0}'.format(e))
+                    if (ping_idx % len(self.__possible_ip_addresses) == 0):
+                        print('Waiting 5 seconds and trying again...')
+                        time.sleep(5)
 
-        # Get the latest model from the trainer
-        print('Getting model from the trainer')
-        sys.stdout.flush()
-        self.__model = RlModel(self.__weights_path, self.__train_conv_layers)
-        self.__get_latest_model()
-
+            # Get the latest model from the trainer
+            print('Getting model from the trainer')
+            sys.stdout.flush()
+            self.__model = RlModel(self.__weights_path, self.__train_conv_layers)
+            self.__get_latest_model()
+        
+        else:
+            print('Run is local. Skipping connection to trainer.')
+            self.__model = RlModel(self.__weights_path, self.__train_conv_layers)
+            
+            
         # Connect to the AirSim exe
         self.__connect_to_airsim()
 
@@ -127,7 +145,9 @@ class DistributedAgent():
             
         # Get the latest model. Other agents may have finished before us.
         print('Replay memory filled. Starting main loop...')
-        self.__get_latest_model()
+        
+        if not self.__local_run:
+            self.__get_latest_model()
         while True:
             try:
                 if (self.__model is not None):
@@ -144,6 +164,8 @@ class DistributedAgent():
                         # Sample experiences from the replay memory
                         sampled_experiences = self.__sample_experiences(experiences, frame_count, True)
 
+                        self.__num_batches_run += frame_count
+                        
                         # If we successfully sampled, train on the collected minibatches and send the gradients to the trainer node
                         if (len(sampled_experiences) > 0):
                             print('Publishing AirSim Epoch.')
@@ -174,7 +196,11 @@ class DistributedAgent():
                 attempt_count += 1
                 if (attempt_count % 10 == 0):
                     print('10 consecutive failures to connect. Attempting to start AirSim on my own.')
-                    os.system('START "" powershell.exe D:\\AD_Cookbook_AirSim\\Scripts\\DistributedRL\\restart_airsim_if_agent.ps1')
+                    
+                    if self.__local_run:
+                        os.system('START "" powershell.exe {0}'.format(os.path.join(self.__airsim_path, 'AD_Cookbook_Start_AirSim.ps1 neighborhood -windowed')))
+                    else:
+                        os.system('START "" powershell.exe D:\\AD_Cookbook_AirSim\\Scripts\\DistributedRL\\restart_airsim_if_agent.ps1')
                 print('Waiting a few seconds.')
                 time.sleep(10)
 
@@ -368,17 +394,42 @@ class DistributedAgent():
         gradients = self.__model.get_gradient_update_from_batches(batches)
         
         # Post the data to the trainer node
-        post_data = {}
-        post_data['gradients'] = gradients
-        post_data['batch_count'] = batches_count
-        
-        new_model_parameters = requests.post('http://{0}:80/gradient_update'.format(self.__trainer_ip_address), json=post_data)
-        print('New params:')
-        print(new_model_parameters)
-        
-        # Update the existing model with the new parameters
-        self.__model.from_packet(new_model_parameters.json())
+        if not self.__local_run:
+            post_data = {}
+            post_data['gradients'] = gradients
+            post_data['batch_count'] = batches_count
+            
+            new_model_parameters = requests.post('http://{0}:80/gradient_update'.format(self.__trainer_ip_address), json=post_data)
+            print('New params:')
+            print(new_model_parameters)
+            
+            # Update the existing model with the new parameters
+            self.__model.from_packet(new_model_parameters.json())
+        else:
+            if (self.__num_batches_run > self.__batch_update_frequency + self.__last_checkpoint_batch_count):
+                self.__model.update_critic()
+                
+                checkpoint = {}
+                checkpoint['model'] = self.__model.to_packet(get_target=True)
+                checkpoint['batch_count'] = batches_count
+                checkpoint_str = json.dumps(checkpoint)
 
+                checkpoint_dir = os.path.join(os.path.join(self.__data_dir, 'checkpoint'), self.__experiment_name)
+                
+                if not os.path.isdir(checkpoint_dir):
+                    try:
+                        os.makedirs(checkpoint_dir)
+                    except OSError as e:
+                        if e.errno != errno.EEXIST:
+                            raise
+                            
+                file_name = os.path.join(checkpoint_dir,'{0}.json'.format(self.__num_batches_run)) 
+                with open(file_name, 'w') as f:
+                    print('Checkpointing to {0}'.format(file_name))
+                    f.write(checkpoint_str)
+                
+                self.__last_checkpoint_batch_count = self.__num_batches_run
+                
     # Gets the latest model from the trainer node
     def __get_latest_model(self):
         print('Getting latest model from parameter server...')
@@ -535,12 +586,27 @@ for arg in sys.argv:
         args = arg.split('=')
         print('0: {0}, 1: {1}'.format(args[0], args[1]))
         parameters[args[0].replace('--', '')] = args[1]
+    if arg.replace('-', '') == 'local_run':
+        parameters['local_run'] = True
 
 #Make the debug statements easier to read
 np.set_printoptions(threshold=np.nan, suppress=True)
 
-# Set up the logging to the file share.
-setup_logs(parameters)
+# Check additional parameters needed for local run
+if 'local_run' in parameters:
+    if 'airsim_path' not in parameters:
+        print('ERROR: for a local run, airsim_path must be defined.')
+        print('Please provide the path to airsim in a parameter like "airsim_path=<path_to_airsim>"')
+        print('It should point to the folder containing AD_Cookbook_Start_AirSim.ps1')
+        sys.exit()
+    if 'batch_update_frequency' not in parameters:
+        print('ERROR: for a local run, batch_update_frequency must be defined.')
+        print('Please provide the path to airsim in a parameter like "batch_update_frequency=<int>"')
+        sys.exit()
+
+# Set up the logging to the file share if not running locally.
+if 'local_run' not in parameters:
+    setup_logs(parameters)
 
 print('------------STARTING AGENT----------------')
 print(parameters)
@@ -550,9 +616,12 @@ print(os.environ)
 print('***')
 
 # Identify the node as an agent and start AirSim
-os.system('echo 1 >> D:\\agent.agent')
-os.system('START "" powershell.exe D:\\AD_Cookbook_AirSim\\Scripts\\DistributedRL\\restart_airsim_if_agent.ps1')
-
+if 'local_run' not in parameters:
+    os.system('echo 1 >> D:\\agent.agent')
+    os.system('START "" powershell.exe D:\\AD_Cookbook_AirSim\\Scripts\\DistributedRL\\restart_airsim_if_agent.ps1')
+else:
+    os.system('START "" powershell.exe {0}'.format(os.path.join(parameters['airsim_path'], 'AD_Cookbook_Start_AirSim.ps1 neighborhood -windowed')))
+    
 # Start the training
 agent = DistributedAgent(parameters)
 agent.start()
