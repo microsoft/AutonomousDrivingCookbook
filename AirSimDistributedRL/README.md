@@ -15,7 +15,10 @@ In this tutorial, you will learn how to train a distributed deep reinforcement l
 
 The instructions provided here use virtual machines spun up on [Microsoft Azure](https://azure.microsoft.com/en-us/) using the [Azure Batch](https://azure.microsoft.com/en-us/services/batch/) service to schedule the distribution job. The ideas presented however, can be easily extended to the cloud platform and services of your choice. Please also note that you should be able to work through the tutorial without having to actually run the given code and train the model. **If you do wish to run the code, you will need an active [Azure subscription](https://azure.microsoft.com/en-us/free/), and kicking off the training job will [incur charges](https://azure.microsoft.com/en-us/pricing/).** 
 
-![car-driving](car_driving.gif)
+Below is a visualization of the training process - four agent machines were simultaneously exploring the environment and generating data on which the reinforcement learning model was trained.
+
+![car_driving_1](car_driving_1.gif)![car_driving_2](car_driving_2.gif)
+![car_driving_3](car_driving_3.gif)![car_driving_4](car_driving_4.gif)
 
 #### Who is this tutorial for?
 
