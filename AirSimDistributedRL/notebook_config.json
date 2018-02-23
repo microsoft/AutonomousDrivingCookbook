@@ -10,5 +10,5 @@
     "batch_job_user_name": "",
     "batch_job_user_password": "",
     "batch_pool_name": "",
-    "batch_pool_size": 2
+    "batch_pool_size":
 }
