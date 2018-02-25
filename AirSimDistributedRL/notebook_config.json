@@ -1,0 +1,14 @@
+{
+    "subscription_id": "",
+    "resource_group_name": "",
+    "storage_account_name": "",
+    "storage_account_key": "",
+    "file_share_name": "",
+    "batch_account_name": "",
+    "batch_account_key": "",
+    "batch_account_url": "",
+    "batch_job_user_name": "",
+    "batch_job_user_password": "",
+    "batch_pool_name": "",
+    "batch_pool_size":
+}

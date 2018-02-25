@@ -1,0 +1,31 @@
+{
+	"id": "{batch_pool_name}",
+	"vmSize": "STANDARD_NV6",
+	"virtualMachineConfiguration": {
+		"imageReference": {
+			"virtualMachineImageId": "/subscriptions/{subscription_id}/resourceGroups/{resource_group_name}/providers/Microsoft.Compute/images/AirsimImage"
+		},
+		"nodeAgentSKUId": "batch.node.windows amd64"
+	},
+	"targetDedicatedNodes": {batch_pool_size},
+	"enableInterNodeCommunication": true,
+	"startTask": {
+		"commandLine": "C:\\ProgramData\\Anaconda3\\Scripts\\activate.bat py36 && python C:\\prereq\\setup_machine.py",
+		"resourceFiles": [{
+			"blobSource": "https://{storage_account_name}.blob.core.windows.net/prereq/setup_machine.py",
+			"filePath": "C:\\prereq\\setup_machine.py"
+		}, {
+			"blobSource": "https://{storage_account_name}.blob.core.windows.net/prereq/mount.bat",
+			"filePath": "C:\\prereq\\mount.bat"
+		}],
+		"userIdentity": {
+			"username": "{batch_job_user_name}"
+		},
+		"waitForSuccess": true
+	},
+	"userAccounts": [{
+		"name": "{batch_job_user_name}",
+		"password": "{batch_job_user_password}",
+		"elevationLevel": "admin"
+	}]
+}
