@@ -34,7 +34,7 @@ If you have never worked with Python notebooks before, we highly recommend [chec
 
 ### Background needed
 
-At the very least, you need to be familiar with the basics neural networks. You are not required to know advanced concepts like LSTMs or Reinforcement Learning but you should know how Convolutional Networks work. A really good starting point to get a strong background in a very short amount of time is [this great book](http://neuralnetworksanddeeplearning.com/) written by Michael Nielsen. It is free, very short and available online. It can provide you a solid foundation in less than a week's time.
+You should be familiar with the basics of neural networks and deep learning. You are not required to know advanced concepts like LSTMs or Reinforcement Learning but you should know how Convolutional Neural Networks work. A really good starting point to get a strong background in a short amount of time is [this highly recommended book on the topic](http://neuralnetworksanddeeplearning.com/) written by Michael Nielsen. It is free, very short and available online. It can provide you a solid foundation in less than a week's time.
 
 You should also be comfortable with Python. At the very least, you should be able to read and understand code written in Python. 
 
@@ -44,10 +44,17 @@ You should also be comfortable with Python. At the very least, you should be abl
 2. [Install CNTK](https://docs.microsoft.com/en-us/cognitive-toolkit/Setup-CNTK-on-your-machine) or [install Tensorflow](https://www.tensorflow.org/install/install_windows)
 3. [Install h5py](http://docs.h5py.org/en/latest/build.html)
 4. [Install Keras](https://keras.io/#installation) and [configure the Keras backend](https://keras.io/backend/) to work with TensorFlow (default) or CNTK.
+5. [Install AzCopy](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy). Be sure to add the location for the AzCopy executable to your system path.
 
 ### Simulator Package
 
-We have created a standalone build of the AirSim simulation environment for the tutorials in this cookbook. [You can download the build package from here](https://aka.ms/ADCookbookAirSimPackage). After downloading the package, unzip it and run the **ADCookbook_Airsim_Mountain.bat** file to start the simulator.
+We have created a standalone build of the AirSim simulation environment for the tutorials in this cookbook. [You can download the build package from here](https://airsimtutorialdataset.blob.core.windows.net/e2edl/AD_Cookbook_AirSim.7z). Consider using [AzCopy](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy), as the file size is large. After downloading the package, unzip it and run the PowerShell command
+
+`
+.\AD_Cookbook_Start_AirSim.ps1 landscape
+`
+
+to start the simulator in the landscape environment.
 
 ### Hardware
 

@@ -34,12 +34,10 @@ It is also highly recommended that the reader has familiarity with the AirSim si
 
 #### Environment Setup
 
-1. [Download the latest version of our AirSim simulation package](https://airsimtutorialdataset.blob.core.windows.net/e2edl/AD_Cookbook_AirSim.7z). Consider using [AzCopy](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy) instead of direct HTTPS download, as the file size is large.
 2. [Install Anaconda](https://conda.io/docs/user-guide/install/index.html) with Python 3.5 or higher.
 3. [Install Tensorflow](https://www.tensorflow.org/install/install_windows)
 4. [Install h5py](http://docs.h5py.org/en/latest/build.html)
-5. [Install Keras](https://keras.io/#installation)
-6. [Configure Keras backend](https://keras.io/backend/) to work with TensorFlow (default) or CNTK.
+4. [Install Keras](https://keras.io/#installation)
 7. [Install AzCopy](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy). Be sure to add the location for the AzCopy executable to your system path.
 8. [Install the latest verison of Azure Powershell](https://docs.microsoft.com/en-us/powershell/azure/install-azurerm-ps?view=azurermps-5.3.0).
 9. [Install the latest version of the Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest).
