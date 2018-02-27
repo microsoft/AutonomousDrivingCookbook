@@ -58,9 +58,9 @@ to start the simulator in the neighborhood environment.
 
 This tutorial has been designed to run on Azure Batch using NV6 machines. Training times and charges vary depending on the number of machines that are spun up. Using a cluster size of 4 (i.e. 3 agent nodes and 1 parameter server node), the model took 3 days to train from scratch. Using transfer learning, the model trained in 6 hours. Using a large cluster size will result in a decreased training time, but will also incur additional charges. 
 
-For demonstration purposes, the model can be trained on a single machine (see instructions below). The model can take up to 5 days to train from scratch, but can train in a few hours using transfer learning. To train the model locally, a machine that contains a GPU is required.
+For demonstration purposes, the model can also be trained on a single machine (see instructions below). The model can take up to 5 days to train from scratch, but can train in a few hours using transfer learning. To train the model locally, a machine with a GPU is required.
 
-Running the final trained model requires a GPU. This can either be an on-premise development box, or an NV-Series Azure Data Science VM. 
+Running the final trained model requires a GPU. This can either be a local machine, or an NV-Series [Azure Data Science VM](https://azure.microsoft.com/en-us/services/virtual-machines/data-science-virtual-machines/). 
 
 ## Structure of the tutorial
 
