@@ -19,7 +19,6 @@ if __name__ == "__main__":
     print('IN MANAGE.PY')
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "downpour.settings")
     
-    # This is fucking stupid.
     custom_args = sys.argv[3:]
     original_args = sys.argv[:3]
     #known_args = ['data_dir', 'role', 'experiment_name', 'batch_update_frequency']
