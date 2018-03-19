@@ -13,6 +13,7 @@ import sys
 import requests
 import PIL
 import copy
+import datetime
 
 # A class that represents the agent that will drive the vehicle, train the model, and send the gradient updates to the trainer.
 class DistributedAgent():
@@ -24,6 +25,8 @@ class DistributedAgent():
 
         parameters['role_type'] = 'agent'
 
+        
+        print('Starting time: {0}'.format(datetime.datetime.utcnow()), file=sys.stderr)
         self.__model_buffer = None
         self.__model = None
         self.__airsim_started = False
@@ -280,9 +283,12 @@ class DistributedAgent():
             #       This constraint is so the model doesn't end up having to churn through huge chunks of data, slowing down training
             # 4) The car has run off the road
             if (collision_info.has_collided or car_state.speed < 2 or utc_now > end_time or far_off):
+                print('Start time: {0}, end time: {1}'.format(start_time, utc_now), file=sys.stderr)
                 if (utc_now > end_time):
                     print('timed out.')
+                    print('Full autonomous run finished at {0}'.format(utc_now), file=sys.stderr)
                 done = True
+                sys.stderr.flush()
             else:
 
                 # The Agent should occasionally pick random action instead of best action
@@ -338,6 +344,7 @@ class DistributedAgent():
         print('Num total actions: {0}'.format(len(actions)))
         
         # If we are in the main loop, reduce the epsilon parameter so that the model will be called more often
+        # Note: this will be overwritten by the trainer's epsilon if running in distributed mode
         if not always_random:
             self.__epsilon -= self.__per_iter_epsilon_reduction
             self.__epsilon = max(self.__epsilon, self.__min_epsilon)
@@ -399,12 +406,21 @@ class DistributedAgent():
             post_data['gradients'] = gradients
             post_data['batch_count'] = batches_count
             
-            new_model_parameters = requests.post('http://{0}:80/gradient_update'.format(self.__trainer_ip_address), json=post_data)
-            print('New params:')
-            print(new_model_parameters)
+            response = requests.post('http://{0}:80/gradient_update'.format(self.__trainer_ip_address), json=post_data)
+            print('Response:')
+            print(response)
+
+            new_model_parameters = response.json()
             
             # Update the existing model with the new parameters
-            self.__model.from_packet(new_model_parameters.json())
+            self.__model.from_packet(new_model_parameters)
+            
+            #If the trainer sends us a epsilon, allow it to override our local value
+            if ('epsilon' in new_model_parameters):
+                new_epsilon = float(new_model_parameters['epsilon'])
+                print('Overriding local epsilon with {0}, which was sent from trainer'.format(new_epsilon))
+                self.__epsilon = new_epsilon
+                
         else:
             if (self.__num_batches_run > self.__batch_update_frequency + self.__last_checkpoint_batch_count):
                 self.__model.update_critic()

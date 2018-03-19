@@ -45,6 +45,16 @@ You should also be comfortable with Python. At the very least, you should be abl
 3. [Install h5py](http://docs.h5py.org/en/latest/build.html)
 4. [Install Keras](https://keras.io/#installation) and [configure the Keras backend](https://keras.io/backend/) to work with TensorFlow (default) or CNTK.
 5. [Install AzCopy](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy). Be sure to add the location for the AzCopy executable to your system path.
+6. Install the other dependencies. From your anaconda environment, run "InstallPackages.py" as root or administrator. This installs the following packages into your environment:
+    * jupyter
+    * matplotlib v. 2.1.2
+    * image
+    * keras_tqdm
+    * opencv
+    * msgpack-rpc-python
+    * pandas
+    * numpy
+    * scipy
 
 ### Simulator Package
 

@@ -27,6 +27,10 @@ next_batch_update_count = 0
 checkpoint_dir = ''
 agents_having_latest_critic = []
 
+min_epsilon = float(os.environ['min_epsilon'])
+epsilon_step = float(os.environ['per_iter_epsilon_reduction'])
+epsilon = 1.0
+
 # A simple endpoint that can be used to determine if the trainer is online.
 # All requests will be responded to with a JSON {"message": "PONG"}
 # Routed to /ping
@@ -52,6 +56,9 @@ def gradient_update(request):
     global batch_update_frequency
     global checkpoint_dir
     global agents_having_latest_critic
+    global epsilon
+    global epsilon_step
+    global min_epsilon
     try:
         # Check that the request is a POST
         if (request.method != 'POST'):
@@ -101,6 +108,13 @@ def gradient_update(request):
                 print('Agent {0} has received the latest critic model. Sending only the actor.'.format(request_ip))
                 model_response = rl_model.to_packet(get_target=False)
 
+            epsilon -= epsilon_step
+            epsilon = max(epsilon, min_epsilon)
+            
+            print('Sending epsilon of {0} to {1}'.format(epsilon, request_ip))
+            
+            model_response['epsilon'] = epsilon
+                
             # Send the response to the agent.
             return JsonResponse(model_response)
     finally:
