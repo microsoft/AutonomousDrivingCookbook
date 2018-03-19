@@ -34,13 +34,23 @@ It is also highly recommended that the reader has familiarity with the AirSim si
 
 #### Environment Setup
 
-2. [Install Anaconda](https://conda.io/docs/user-guide/install/index.html) with Python 3.5 or higher.
-3. [Install Tensorflow](https://www.tensorflow.org/install/install_windows)
-4. [Install h5py](http://docs.h5py.org/en/latest/build.html)
+1. [Install Anaconda](https://conda.io/docs/user-guide/install/index.html) with Python 3.5 or higher.
+2. [Install Tensorflow](https://www.tensorflow.org/install/install_windows)
+3. [Install h5py](http://docs.h5py.org/en/latest/build.html)
 4. [Install Keras](https://keras.io/#installation)
-7. [Install AzCopy](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy). Be sure to add the location for the AzCopy executable to your system path.
-8. [Install the latest verison of Azure Powershell](https://docs.microsoft.com/en-us/powershell/azure/install-azurerm-ps?view=azurermps-5.3.0).
-9. [Install the latest version of the Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest).
+5. [Install AzCopy](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy). Be sure to add the location for the AzCopy executable to your system path.
+6. [Install the latest verison of Azure Powershell](https://docs.microsoft.com/en-us/powershell/azure/install-azurerm-ps?view=azurermps-5.3.0).
+7. [Install the latest version of the Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest).
+8. Install the other dependencies. From your anaconda environment, run "InstallPackages.py" as root or administrator. This installs the following packages into your environment:
+    * jupyter
+    * matplotlib v. 2.1.2
+    * image
+    * keras_tqdm
+    * opencv
+    * msgpack-rpc-python
+    * pandas
+    * numpy
+    * scipy
 
 #### Simulator Package
 
