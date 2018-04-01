@@ -37,7 +37,7 @@ class DistributedAgent():
         self.__replay_memory_size = int(parameters['replay_memory_size'])
         self.__batch_size = int(parameters['batch_size'])
         self.__experiment_name = parameters['experiment_name']
-        self.__train_conv_layers = bool(parameters['train_conv_layers'])
+        self.__train_conv_layers = bool((parameters['train_conv_layers'].lower().strip() == 'true'))
         self.__epsilon = 1
         self.__num_batches_run = 0
         self.__last_checkpoint_batch_count = 0
