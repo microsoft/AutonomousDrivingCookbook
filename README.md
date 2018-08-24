@@ -6,7 +6,7 @@
 
 #### **NOTE:**
 
-This project is developed and being maintained by the Microsoft Deep Learning and Robotics Garage Chapter. This is currently a work in progress. We will continue to add more tutorials and scenarios based on requests from our users and the availability of our collaborators.
+This project is developed and being maintained by [Project Road Runner](https://www.microsoft.com/en-us/garage/blog/2018/04/project-road-runner-train-autonomous-driving-algorithms-for-road-safety/) at Microsoft Garage. This is currently a work in progress. We will continue to add more tutorials and scenarios based on requests from our users and the availability of our collaborators.
 
 ------
 <p align="center">
