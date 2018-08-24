@@ -8,7 +8,7 @@ Please fill out the sections below so we can understand your issue better and re
 ## Problem details
 *(Please describe your problem in as much detail as possible here. Make sure to include screenshots, code snippets, error messages, links and anything else you think will help us understand your problem better. If applicable, please also provide us a list of steps to reproduce your problem.)*
 
-## Exepriment/Environment details
+## Experiment/Environment details
 * Tutorial used: *(For example, AirSimE2EDeepLearning, DistributedRL etc.)*
 * Environment used: *(For example, landscape, city, hawaii etc.)*
 * Versions of artifacts used (if applicable): *(For example, Python 3.5, Keras 2.1.2 etc.)*
